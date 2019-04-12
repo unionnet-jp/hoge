@@ -4,6 +4,7 @@
   "description": "WP-theme",
   "homepage": "https://github.com/yamaotakuro/uniontheme",
   "license": "MIT",
+  "minimum-stability": "stable",
   "authors": [
     {
       "name": "Takuro Yamao",
@@ -19,5 +20,15 @@
     "psr-0": {
       "Monolog": "src"
     }
+  },
+  "scripts": {
+    "set-wp-content": [
+      "rm -rf wp/wp-content/themes",
+      "mv -s vendor/yamaotakuro/uniontheme wp/wp-content/"
+    ],
+
+    "post-install-cmd": [
+      "composer set-wp-content"
+    ]
   }
 }
