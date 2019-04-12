@@ -1,6 +1,23 @@
 {
-  "name": "uniontheme",
-  "description": "WP-theme",
+  "name": "yamaotakuro/uniontheme",
   "type": "theme",
-  "minimum-stability": "stable"
+  "description": "WP-theme",
+  "homepage": "https://github.com/yamaotakuro/uniontheme",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Takuro Yamao",
+      "email": "yamao@unionnet.jp",
+      "homepage": "https://www.unionnet.jp",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.6.0"
+  },
+  "autoload": {
+    "psr-0": {
+      "Monolog": "src"
+    }
+  }
 }
