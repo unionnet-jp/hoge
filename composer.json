@@ -26,6 +26,7 @@
       "rm -rf wp/wp-content/themes",
       "mv -s vendor/yamaotakuro/uniontheme wp/wp-content/"
     ],
+
     "post-install-cmd": [
       "composer set-wp-content"
     ]
