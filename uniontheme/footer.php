@@ -30,7 +30,7 @@
 		</ul>
 	</nav>
 	
-    <p class="copyright"><small>&copy; <?php echo get_year(date('Y'));?> <?php bloginfo('name'); ?> All rights reserved.</small></p>
+    <p class="copyright"><small>&copy; 発行年を入れる <?php bloginfo('name'); ?></small></p>
 
   <!-- / .inner --></div>
 <!-- / .l-footer --></footer>
