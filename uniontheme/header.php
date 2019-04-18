@@ -45,24 +45,19 @@
 <!--   ヘッダー   -->
 
 <header class="l-header">
-  <div class="inner">
-	<h1 class="logo"><a href="<?php echo HOME; ?>"><?php bloginfo('name'); ?></a></h1>
-  <!-- / .inner --></div>
-<!-- / #header --></header>
+  <div class="l-header__inner">
+	<h1 class="l-header__logo"><a href="<?php echo HOME; ?>"><?php bloginfo('name'); ?></a></h1>
+  <!-- / .l-header__inner --></div>
+<!-- / .l-header --></header>
 
 <?php if(is_front_page() && !is_paged()) { /*トップページ*/ ?>
-<div class="main_visual">
+<div class="p-kv">
 
-	<div class="flexslider">
-		<ul class="slides">
-			<li>Sample1</li>
-		</ul>
-	<!-- / .flexslider --></div>
 	
-<!-- / .main_visual --></div>
+<!-- / .p-kv --></div>
 
 <?php } else { ?>
-<div class="lower_ttl">
+<div class="p-kv__lower">
 
 	<?php if(is_404()){ /*404ページ*/ ?>
 	<img src="<?php echo HOME; ?>img/main/main_404.jpg" alt="<?php the_title(); ?>">
@@ -85,16 +80,15 @@
 	<h2><?php the_title(); ?></h2><p><?php echo esc_attr( esc_html($post->post_name) ); ?></p>
 	<?php } ?>
 	
-<!--.lower_ttl--></div>
+<!--.p-kv__lower--></div>
 <?php } ?>
 
 <!--    コンテンツ	-->
 
 <div class="l-contents">
-  <div class="inner">
   
 	<?php if(!is_front_page()){ //パンくず表示開始 ?>
-	<div class="crumbs breadcrumbs" typeof="BreadcrumbList" vocab="http://schema.org/">
+	<div class="c-crumbs breadcrumbs" typeof="BreadcrumbList" vocab="http://schema.org/">
 		<?php
 		if ( function_exists('yoast_breadcrumb') ) {
 			yoast_breadcrumb( '<p id="breadcrumbs">','</p>' );

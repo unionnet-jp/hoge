@@ -1,6 +1,6 @@
 <!-- START dropdown-taxonomy.php -->
 
-<div class="dropdown">
+<div class="c-dropdown">
 <form action="<?php bloginfo('url'); ?>/" method="get" >
 <select name="archive-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
 <option value="">カテゴリー別に見る</option>
@@ -15,6 +15,6 @@ foreach ($terms as $term ) { ?>
 </select>
 <noscript><input type="submit" value="見る" /></noscript>
 </form>
-<!-- / .dropdown --></div>
+<!-- / .c-dropdown --></div>
 
 <!-- END dropdown-taxonomy.php -->

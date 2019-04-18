@@ -6,7 +6,7 @@ Union Theme - Version: 1.4
 
 get_header(); ?>
 
-<article class="m-privacy">
+<article class="p-privacy">
 <div class="container">
 
 <h2>プライバシーポリシー</h2>

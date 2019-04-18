@@ -4,7 +4,7 @@
 */
 get_header(); ?>
 
-<article class="m-notfound">
+<article class="p-notfound">
 <h2>404 Not Found - ページが見つかりません</h2>
 
 <div class="body">
@@ -15,7 +15,7 @@ get_header(); ?>
 <li>指定されたページは削除されたか、移動した可能性があります。</li>
 </ul>
 
-<p class="tC"><a href="<?php echo HOME?>" class="return_top">トップへ戻る</a></p>
+<p class="u-center"><a href="<?php echo HOME?>" class="c-return_top">トップへ戻る</a></p>
 <!-- / .body --></div>
 
 <!-- / #notfound --></article>

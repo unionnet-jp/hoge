@@ -4,7 +4,6 @@
 */
 ?>
 
-  <!-- / .inner --></div>
 <!-- / .l-contents --></div>
 
 <!--     フッター   -->
@@ -12,7 +11,7 @@
 <footer class="l-footer">
 
 
-  <div class="inner">
+  <div class="l-footer__inner">
 
 
 	<section>
@@ -30,9 +29,9 @@
 		</ul>
 	</nav>
 	
-    <p class="copyright"><small>&copy; 発行年を入れる <?php bloginfo('name'); ?></small></p>
+    <p class="l-footer__copyright"><small>&copy; 発行年を入れる <?php bloginfo('name'); ?></small></p>
 
-  <!-- / .inner --></div>
+  <!-- / .l-footer__inner --></div>
 <!-- / .l-footer --></footer>
 
 <!-- / #page --></div>

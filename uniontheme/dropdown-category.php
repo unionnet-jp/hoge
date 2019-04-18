@@ -1,6 +1,6 @@
 <!-- START dropdown-category.php -->
 
-<div class="dropdown">
+<div class="c-dropdown">
 <form action="<?php bloginfo('url'); ?>/" method="get" >
 <?php
 $select = wp_dropdown_categories('show_option_none=カテゴリー別に見る&hide_empty=0&echo=0');
@@ -9,6 +9,6 @@ echo $select;
 ?>
 <noscript><input type="submit" value="見る" /></noscript>
 </form>
-<!-- / .dropdown --></div>
+<!-- / .c-dropdown --></div>
 
 <!-- END dropdown-category.php -->
