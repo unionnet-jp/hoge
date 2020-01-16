@@ -86,12 +86,12 @@
 <div class="l-contents">
   
 	<?php if(!is_front_page()){ //パンくず表示開始 ?>
-	<div class="c-crumbs breadcrumbs" typeof="BreadcrumbList" vocab="http://schema.org/">
-		<?php
+	<div class="c-crumbs">
+	<?php
 		if ( function_exists('yoast_breadcrumb') ) {
 			yoast_breadcrumb( '<p id="breadcrumbs">','</p>' );
 		}
-		?>
+	?>
   </div>
 	<?php } //パンくず表示終わり?>
 	
