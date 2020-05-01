@@ -183,25 +183,29 @@ add_filter( 'wp_list_categories', 'delete_list_categories_title_attribute' );
 ***************************************/
 //ユーザーフィールド「名称」を出力するショートコード
 function user_fields_shortcode_general_name() {
-  return esc_html(SCF::get_user_meta( 1,'general-name' ));
+  $uni_user_fields = get_option('uni_user_field');
+  return esc_html($uni_user_fields[0]);
 }
 add_shortcode( 'uf_general_name', 'user_fields_shortcode_general_name' );
 
 //ユーザーフィールド「TEL」を出力するショートコード
 function user_fields_shortcode_general_tel() {
-  return esc_html(SCF::get_user_meta( 1,'general-tel' ));
+  $uni_user_fields = get_option('uni_user_field');
+  return esc_html($uni_user_fields[4]);
 }
 add_shortcode( 'uf_general_tel', 'user_fields_shortcode_general_tel' );
 
 //ユーザーフィールド「FAX」を出力するショートコード
 function user_fields_shortcode_general_fax() {
-  return esc_html(SCF::get_user_meta( 1,'general-fax' ));
+  $uni_user_fields = get_option('uni_user_field');
+  return esc_html($uni_user_fields[5]);
 }
 add_shortcode( 'uf_general_fax', 'user_fields_shortcode_general_fax' );
 
 //ユーザーフィールド「フリーダイアル」を出力するショートコード
 function user_fields_shortcode_general_freedial() {
-  return esc_html(SCF::get_user_meta( 1,'general-freedial' ));
+  $uni_user_fields = get_option('uni_user_field');
+  return esc_html($uni_user_fields[6]);
 }
 add_shortcode( 'uf_general_freedial', 'user_fields_shortcode_general_freedial' );
 
@@ -211,7 +215,8 @@ function user_fields_shortcode_general_address( $atts ) {
     'html' => false,
     'br' => false
   ), $atts));
-  $address = SCF::get_user_meta( 1,'general-address' );
+  $uni_user_fields = get_option('uni_user_field');
+  $address = $uni_user_fields[3];
   if ( $atts ) {
     if( $html && $br ) {
     return apply_filters( 'the_content', nl2br( $address ) );
@@ -233,7 +238,8 @@ function user_fields_shortcode_general_opentime( $atts ) {
     'html' => false,
     'br' => false
   ), $atts));
-  $opentime = SCF::get_user_meta( 1,'general-opentime' );
+  $uni_user_fields = get_option('uni_user_field');
+  $opentime = $uni_user_fields[9];
   if ( $atts ) {
     if( $html && $br ) {
     return apply_filters( 'the_content', nl2br( $opentime ) );
@@ -255,7 +261,8 @@ function user_fields_shortcode_general_dayoff( $atts ) {
     'html' => false,
     'br' => false
   ), $atts));
-  $dayoff = SCF::get_user_meta( 1,'general-dayoff' );
+  $uni_user_fields = get_option('uni_user_field');
+  $dayoff = $uni_user_fields[10];
   if ( $atts ) {
     if( $html && $br ) {
     return apply_filters( 'the_content', nl2br( $dayoff ) );
@@ -273,52 +280,38 @@ add_shortcode( 'uf_general_dayoff', 'user_fields_shortcode_general_dayoff' );
 
 //ユーザーフィールド「名称の謙譲表現」を出力するショートコード
 function user_fields_shortcode_general_self() { 
-  $self_name01 = SCF::get_user_meta( 1,'general-self' ); //ユーザーフィールド「名称の謙譲表現」
-  $self_name02 = SCF::get_user_meta( 1,'general-self-other' ); //ユーザーフィールド「名称の謙譲表現（その他）」
-  if( !empty($self_name01) ) { return esc_html($self_name01); }
-  elseif( !empty($self_name02) ) { return esc_html($self_name02); }
+  $uni_user_fields = get_option('uni_user_field');
+  $self_name01 = $uni_user_fields[1];//ユーザーフィールド「名称の謙譲表現」
+  return esc_html($self_name01);
 }
 add_shortcode( 'uf_general_self', 'user_fields_shortcode_general_self' );
 
 //ユーザーフィールド「代表者」を出力するショートコード
 function user_fields_shortcode_general_officer() { 
-  return esc_html(SCF::get_user_meta( 1,'general-chief-privacy-officer' ));
+  $uni_user_fields = get_option('uni_user_field');
+  return esc_html($uni_user_fields[2]);
 }
 add_shortcode( 'uf_general_officer', 'user_fields_shortcode_general_officer' );
 
 //ユーザーフィールド「代表メールアドレス」を出力するショートコード
 function user_fields_shortcode_general_mail() { 
-  return antispambot(SCF::get_user_meta( 1,'general-mail-address' ));
+  $uni_user_fields = get_option('uni_user_field');
+  return antispambot($uni_user_fields[7]);
 }
 add_shortcode( 'uf_general_mail', 'user_fields_shortcode_general_mail' );
 
 //ユーザーフィールド「メールドメイン」を出力するショートコード
 function user_fields_shortcode_general_mail_domain() { 
-  return antispambot(SCF::get_user_meta( 1,'general-mail-domain' ));
+  $uni_user_fields = get_option('uni_user_field');
+  return antispambot($uni_user_fields[8]);
 }
 add_shortcode( 'uf_general_mail_domain', 'user_fields_shortcode_general_mail_domain' );
 
-//ユーザーフィールド「トップページのタイトル」を出力するショートコード
-function user_fields_shortcode_top_title() { 
-  return esc_html(SCF::get_user_meta( 1,'top-title' ));
-}
-add_shortcode( 'uf_top_title', 'user_fields_shortcode_top_title' );
-
-//ユーザーフィールド「下層ページのタイトル」を出力するショートコード
-function user_fields_shortcode_additional_title() { 
-  return esc_html(SCF::get_user_meta( 1,'additional-title' ));
-}
-add_shortcode( 'uf_additional_title', 'user_fields_shortcode_additional_title' );
-
-//ユーザーフィールド「META KEYWORDS」を出力するショートコード
-function user_fields_shortcode_meta_keywords() { 
-  return esc_html(SCF::get_user_meta( 1,'meta-keywords' ));
-}
-add_shortcode( 'uf_meta_keywords', 'user_fields_shortcode_meta_keywords' );
 
 //ユーザーフィールド「Google Analytics UA」を出力するショートコード
 function user_fields_shortcode_googleua() { 
-  return esc_html(SCF::get_user_meta( 1,'google-analytics-ua' ));
+  $uni_user_fields = get_option('uni_user_field');
+  return esc_html($uni_user_fields[11]);
 }
 add_shortcode( 'uf_google_ua', 'user_fields_shortcode_googleua' );
 
