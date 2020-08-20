@@ -3,7 +3,6 @@
  Union Theme - Version: 1.4
 */
 ?>
-<!-- / #main --></div>
 
 <aside class="l-side">
 

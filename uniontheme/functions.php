@@ -59,15 +59,14 @@ add_action('wp_enqueue_scripts','no_wp_jquery');
 function common_scripts() {
   if(!is_admin()){
     wp_deregister_script( 'jquery' );
-    wp_enqueue_script('jquery','//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js');
-    wp_enqueue_script('scripts',esc_url(home_url('/')).'assets/js/min/scripts.js');
+    wp_enqueue_script('scripts',esc_url(home_url('/')).'dist/js/bundle.js');
   }
 }
 add_action('wp_footer','common_scripts');
 
 function common_styles() {
   if(!is_admin()){
-    wp_enqueue_style('default',esc_url(home_url('/')).'assets/css/theme.css');
+    wp_enqueue_style('default',esc_url(home_url('/')).'dist/css/theme.css');
     wp_enqueue_style('builtin',esc_url(get_stylesheet_uri()));
   }
 }
@@ -177,143 +176,6 @@ function delete_list_categories_title_attribute( $output ) {
   return $output;
 }
 add_filter( 'wp_list_categories', 'delete_list_categories_title_attribute' );
-
-/***************************************
-カスタムショートコード設定
-***************************************/
-//ユーザーフィールド「名称」を出力するショートコード
-function user_fields_shortcode_general_name() {
-  $uni_user_fields = get_option('uni_user_field');
-  return esc_html($uni_user_fields[0]);
-}
-add_shortcode( 'uf_general_name', 'user_fields_shortcode_general_name' );
-
-//ユーザーフィールド「TEL」を出力するショートコード
-function user_fields_shortcode_general_tel() {
-  $uni_user_fields = get_option('uni_user_field');
-  return esc_html($uni_user_fields[4]);
-}
-add_shortcode( 'uf_general_tel', 'user_fields_shortcode_general_tel' );
-
-//ユーザーフィールド「FAX」を出力するショートコード
-function user_fields_shortcode_general_fax() {
-  $uni_user_fields = get_option('uni_user_field');
-  return esc_html($uni_user_fields[5]);
-}
-add_shortcode( 'uf_general_fax', 'user_fields_shortcode_general_fax' );
-
-//ユーザーフィールド「フリーダイアル」を出力するショートコード
-function user_fields_shortcode_general_freedial() {
-  $uni_user_fields = get_option('uni_user_field');
-  return esc_html($uni_user_fields[6]);
-}
-add_shortcode( 'uf_general_freedial', 'user_fields_shortcode_general_freedial' );
-
-//ユーザーフィールド「所在地」を出力するショートコード
-function user_fields_shortcode_general_address( $atts ) {
-  extract(shortcode_atts(array(
-    'html' => false,
-    'br' => false
-  ), $atts));
-  $uni_user_fields = get_option('uni_user_field');
-  $address = $uni_user_fields[3];
-  if ( $atts ) {
-    if( $html && $br ) {
-    return apply_filters( 'the_content', nl2br( $address ) );
-    } elseif( $html ) {
-    return apply_filters( 'the_content', $address );
-    } elseif( $br ) {
-    return nl2br( esc_html( $address ) );
-    }
-  }
-  else{
-    return esc_html( $address );
-  }
-}
-add_shortcode( 'uf_general_address', 'user_fields_shortcode_general_address' );
-
-//ユーザーフィールド「営業時間／診療時間」を出力するショートコード
-function user_fields_shortcode_general_opentime( $atts ) {
-  extract(shortcode_atts(array(
-    'html' => false,
-    'br' => false
-  ), $atts));
-  $uni_user_fields = get_option('uni_user_field');
-  $opentime = $uni_user_fields[9];
-  if ( $atts ) {
-    if( $html && $br ) {
-    return apply_filters( 'the_content', nl2br( $opentime ) );
-    } elseif( $html ) {
-    return apply_filters( 'the_content', $opentime );
-    } elseif( $br ) {
-    return nl2br( esc_html( $opentime ) );
-    }
-  }
-  else{
-    return esc_html( $opentime );
-  }
-}
-add_shortcode( 'uf_general_opentime', 'user_fields_shortcode_general_opentime' );
-
-//ユーザーフィールド「定休日」を出力するショートコード
-function user_fields_shortcode_general_dayoff( $atts ) {
-  extract(shortcode_atts(array(
-    'html' => false,
-    'br' => false
-  ), $atts));
-  $uni_user_fields = get_option('uni_user_field');
-  $dayoff = $uni_user_fields[10];
-  if ( $atts ) {
-    if( $html && $br ) {
-    return apply_filters( 'the_content', nl2br( $dayoff ) );
-    } elseif( $html ) {
-    return apply_filters( 'the_content', $dayoff );
-    } elseif( $br ) {
-    return nl2br( esc_html( $dayoff ) );
-    }
-  }
-  else{
-    return esc_html( $dayoff );
-  }
-}
-add_shortcode( 'uf_general_dayoff', 'user_fields_shortcode_general_dayoff' );
-
-//ユーザーフィールド「名称の謙譲表現」を出力するショートコード
-function user_fields_shortcode_general_self() { 
-  $uni_user_fields = get_option('uni_user_field');
-  $self_name01 = $uni_user_fields[1];//ユーザーフィールド「名称の謙譲表現」
-  return esc_html($self_name01);
-}
-add_shortcode( 'uf_general_self', 'user_fields_shortcode_general_self' );
-
-//ユーザーフィールド「代表者」を出力するショートコード
-function user_fields_shortcode_general_officer() { 
-  $uni_user_fields = get_option('uni_user_field');
-  return esc_html($uni_user_fields[2]);
-}
-add_shortcode( 'uf_general_officer', 'user_fields_shortcode_general_officer' );
-
-//ユーザーフィールド「代表メールアドレス」を出力するショートコード
-function user_fields_shortcode_general_mail() { 
-  $uni_user_fields = get_option('uni_user_field');
-  return antispambot($uni_user_fields[7]);
-}
-add_shortcode( 'uf_general_mail', 'user_fields_shortcode_general_mail' );
-
-//ユーザーフィールド「メールドメイン」を出力するショートコード
-function user_fields_shortcode_general_mail_domain() { 
-  $uni_user_fields = get_option('uni_user_field');
-  return antispambot($uni_user_fields[8]);
-}
-add_shortcode( 'uf_general_mail_domain', 'user_fields_shortcode_general_mail_domain' );
-
-
-//ユーザーフィールド「Google Analytics UA」を出力するショートコード
-function user_fields_shortcode_googleua() { 
-  $uni_user_fields = get_option('uni_user_field');
-  return esc_html($uni_user_fields[11]);
-}
-add_shortcode( 'uf_google_ua', 'user_fields_shortcode_googleua' );
 
 //ホームURLを出力するショートコード
 function user_fields_shortcode_home_url() { 

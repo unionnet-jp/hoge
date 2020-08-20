@@ -14,14 +14,6 @@
   <div class="l-footer__inner">
 
 
-	<section>
-		<h2><?php bloginfo('name'); ?></h2>
-		<ul>
-			<li class="address"><?php echo do_shortcode('[uf_general_address]'); ?></li>
-			<li class="tel"><?php echo do_shortcode('[uf_general_tel]'); ?></li>
-			<li class="fax"><?php echo do_shortcode('[uf_general_fax]'); ?></li>
-		</ul>
-	</section>
 	
 	<nav>
 		<ul>
