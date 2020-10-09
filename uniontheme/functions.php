@@ -200,18 +200,6 @@ echo '<style>#update-nag, .update-nag{display: none !important;}</style>';
 //言語ファイルの自動アップデートを停止
 add_filter( 'auto_update_translation', '__return_false' );
 
-//固定ページの編集時のみビジュアルエディタを使用できないようにする
-function disable_visual_editor_in_page() {
-  global $typenow;
-  if ( in_array( $typenow,  array( 'page', 'mw-wp-form' ) ) ) {
-      add_filter('user_can_richedit', 'disable_visual_editor_filter');
-  }
-}
-function disable_visual_editor_filter() {
-  return false;
-}
-add_action('load-post.php', 'disable_visual_editor_in_page');
-add_action('load-post-new.php', 'disable_visual_editor_in_page');
 
 //「URL/login」「URL/admin」「URL/dashboard」へのリダイレクト禁止
 remove_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 );
@@ -246,3 +234,12 @@ function custom_caption_shortcode($attr, $content = null) {
 
   return '<figure ' . $id . 'class="wp-caption ' . esc_attr($align) . '">' . do_shortcode( $content ) . '<figcaption class="wp-caption-text">' . $caption . '</figcaption></figure>';
 }
+
+
+function remove_cssjs_ver2( $src ) {
+  if ( strpos( $src, 'ver=' ) )
+      $src = remove_query_arg( 'ver', $src );
+  return $src;
+}
+add_filter( 'style_loader_src', 'remove_cssjs_ver2', 9999 );
+add_filter( 'script_loader_src', 'remove_cssjs_ver2', 9999 );
