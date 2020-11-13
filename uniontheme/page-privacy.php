@@ -7,7 +7,7 @@ Union Theme - Version: 1.4
 get_header(); ?>
 
 <section class="p-privacy">
-<div class="container">
+<div class="c-container">
 
 <h2>プライバシーポリシー</h2>
 
@@ -122,8 +122,7 @@ get_header(); ?>
 変更後の本方針については、[名称の謙譲表現]が別途定める場合を除いて、当サイトに掲載した時から効力を生じるものとします。</p>
 
 </section>
-<!-- /.container --></div>
+<!-- /.c-container --></div>
 </section>
 
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>

@@ -4,6 +4,9 @@
 */
 get_header(); ?>
 
+<div class="p-indexkv">
+
+<!-- / .p-indexkv --></div>
 <?php
 $first = true;
 if(have_posts()):

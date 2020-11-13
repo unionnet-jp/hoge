@@ -4,6 +4,16 @@
 */
 get_header(); ?>
 
+
+
+<div class="p-lower_kv">
+	
+	<img src="<?php echo HOME; ?>img/main/main.jpg" alt="">
+	<h1></h1><p></p>
+	
+<!--.p-lower_kv--></div>
+
+
 <?php locate_template( array( 'dropdown-monthly.php' ), true, true ); //月別アーカイブドロップダウンを読み込む ?>
 
 <?php while (have_posts()) : the_post(); ?>

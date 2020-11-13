@@ -4,6 +4,11 @@
 */
 get_header(); ?>
 
+<div class="p-lower_kv">
+  <img src="<?php echo HOME; ?>img/main/main_404.jpg" alt="<?php the_title(); ?>">
+  <h1><?php the_title(); ?></h1><p>404 Not Found</p>
+<!--.p-lower_kv--></div>
+
 <section class="p-notfound_body">
   <div class="container">
     <h2>404 Not Found - ページが見つかりません</h2>

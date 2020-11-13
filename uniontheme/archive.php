@@ -4,6 +4,13 @@
 */
 get_header(); ?>
 
+<div class="p-lower_kv">
+	
+	<img src="<?php echo HOME; ?>img/main/main.jpg" alt="">
+	<h1></h1><p></p>
+	
+<!--.p-lower_kv--></div>
+
 <nav class="archive">
 
 	<h2 class="subTtl01"><?php wp_title(''); ?></h2>
