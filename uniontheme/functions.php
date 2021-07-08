@@ -240,3 +240,21 @@ function remove_cssjs_ver2( $src ) {
 }
 add_filter( 'style_loader_src', 'remove_cssjs_ver2', 9999 );
 add_filter( 'script_loader_src', 'remove_cssjs_ver2', 9999 );
+
+function gutenberg_support_setup() {
+  //Gutenberg用スタイルの読み込み
+  add_theme_support( 'wp-block-styles' );
+  //add_theme_support( 'align-wide' );
+  add_theme_support('editor-styles');
+  //独自スタイルの適用
+  add_editor_style();
+}
+add_action( 'after_setup_theme', 'gutenberg_support_setup' );
+
+function myguten_enqueue() {
+	echo '<script>
+	console.log("font-size changed!");
+	document.documentElement.style.fontSize = "62.5%";
+	</script>';
+}
+add_action( 'enqueue_block_editor_assets', 'myguten_enqueue' );
