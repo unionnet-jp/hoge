@@ -54,7 +54,7 @@ add_action('wp_enqueue_scripts','no_wp_jquery');
 
 //ヘッダーにcommonを読込む
 function common_scripts() {
-  if(!is_admin()){
+  if(!is_admin() || is_404()){
     wp_deregister_script( 'jquery' );
     wp_enqueue_script('scripts',esc_url(home_url('/')).'dist/js/bundle.js');
   }
@@ -62,14 +62,13 @@ function common_scripts() {
 add_action('wp_footer','common_scripts');
 
 function common_styles() {
-  if(!is_admin()){
+  if(!is_admin() || is_404()){
     wp_enqueue_style('default',esc_url(home_url('/')).'dist/css/theme.css');
     wp_enqueue_style('builtin',esc_url(get_stylesheet_uri()));
   }
 }
 add_action('wp_print_styles','common_styles');
- 
- 
+
 //年月日アーカイブのタイトル日本語表記を整える
 function ja_date_wp_title($title, $sep, $seplocation) {
   $year = get_query_var('year');

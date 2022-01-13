@@ -4,18 +4,6 @@
 */
 get_header(); ?>
 
-
-
-<div class="p-lower_kv">
-	
-	<img src="<?php echo HOME; ?>img/main/main.jpg" alt="">
-	<h1></h1><p></p>
-	
-<!--.p-lower_kv--></div>
-
-
-<?php locate_template( array( 'dropdown-monthly.php' ), true, true ); //月別アーカイブドロップダウンを読み込む ?>
-
 <?php while (have_posts()) : the_post(); ?>
 <article class="single post">
 <h2 class="subTtl02"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
@@ -28,5 +16,4 @@ get_header(); ?>
 
 <?php locate_template( array( 'pagenavi-default.php' ), true, true ); //ページナビテンプレートを読み込む ?>
 
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>

@@ -15,23 +15,6 @@ get_header(); ?>
 <?php endif; ?>
 <!--.c-lower_kv--></div>
 
-<?php
-$first = true;
-if(have_posts()):
-  while(have_posts()):
-    the_post();
+<?php the_content(); ?>
 
-  if($first){
-    $first = false;
-remove_filter('the_content','wpautop');
-the_content();
-add_filter('the_content','wpautop');
-  }
-  else
-    the_excerpt();
-  endwhile;
-endif;
-?>
-
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>

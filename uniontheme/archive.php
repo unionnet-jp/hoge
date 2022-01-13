@@ -4,35 +4,22 @@
 */
 get_header(); ?>
 
-<div class="p-lower_kv">
-	
-	<img src="<?php echo HOME; ?>img/main/main.jpg" alt="">
-	<h1></h1><p></p>
-	
-<!--.p-lower_kv--></div>
 
-<nav class="archive">
 
-	<h2 class="subTtl01"><?php wp_title(''); ?></h2>
-	
-	<?php locate_template( array( 'dropdown-monthly.php' ), true, true ); //月別アーカイブドロップダウンを読み込む ?>
-	
-	<?php if (have_posts()) : ?>
-	<div class="postList">
-		<ul>
-			<?php while (have_posts()) : the_post();
-			
-				locate_template( array( 'list-post.php' ), true, false ); //リストループ用テンプレートを読み込む
-				
-			endwhile;?>
-		</ul>
-	<!-- / .postList --></div>
-	
-	<?php else : echo '<p>まだ記事はありません。</p>'; endif; ?>
-	
-</nav>
+<h2 class="subTtl01"><?php wp_title(''); ?></h2>
+
+<?php if (have_posts()) : ?>
+<div class="postList">
+	<ul>
+		<?php while (have_posts()) : the_post();
+			locate_template( array( 'list-post.php' ), true, false ); //リストループ用テンプレートを読み込む
+		endwhile;?>
+	</ul>
+<!-- / .postList --></div>
+
+<?php else : echo '<p>まだ記事はありません。</p>'; endif; ?>
+
 
 <?php if(function_exists('wp_pagenavi')) { wp_pagenavi(); } ?>
 
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>

@@ -13,7 +13,6 @@
 <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="<?php echo HOME; ?>favicon.ico">
 <link rel="icon" type="image/vnd.microsoft.icon" href="<?php echo HOME; ?>favicon.ico">
 <link rel="shortcut icon" type="image/x-icon" href="<?php echo HOME; ?>favicon.ico">
-<!--  スマホ用基本 -->
 <link rel="apple-touch-icon-precomposed" href="<?php echo HOME; ?>img/common/meta/webclip.png">
 <?php wp_head(); ?>
 
