@@ -63,7 +63,7 @@ add_action('wp_footer','common_scripts');
 
 function common_styles() {
   if(!is_admin() || is_404()){
-    wp_enqueue_style('default',esc_url(home_url('/')).'dist/css/theme.css');
+    wp_enqueue_style('default',esc_url(home_url('/')).'dist/css/style.css');
     wp_enqueue_style('builtin',esc_url(get_stylesheet_uri()));
   }
 }
