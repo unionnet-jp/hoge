@@ -257,3 +257,63 @@ function myguten_enqueue() {
 	</script>';
 }
 add_action( 'enqueue_block_editor_assets', 'myguten_enqueue' );
+
+
+//----------------------------------------------------
+// Gutenbergブロック 編集
+//----------------------------------------------------
+
+// 不要なブロックの削除
+function enqueue_custom_script() {
+  wp_enqueue_script(
+    'remove_block', // ハンドル名
+    get_template_directory_uri() . '/js/remove-block.js', // JSのパス
+    array() // 依存関係のスクリプト（jQueryなどのライブラリを指定可）
+  );
+}
+add_action( 'enqueue_block_editor_assets', 'enqueue_custom_script' );
+
+//ブロックパターンのカテゴリーを削除する
+add_action('admin_init', function () {
+  unregister_block_pattern_category( 'buttons');
+  unregister_block_pattern_category( 'header');
+  unregister_block_pattern_category( 'query');
+});
+
+
+//----------------------------------------------------
+//ダッシュボード 編集
+//----------------------------------------------------
+//不要なウィジェット削除
+function remove_dashboard_widget() {
+  remove_meta_box( 'dashboard_site_health', 'dashboard', 'normal' ); // サイトヘルスステータス
+  remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' ); // 概要
+  remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' ); // アクティビティ
+  remove_meta_box( 'wpseo-dashboard-overview', 'dashboard', 'side' ); // yoast
+  remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' ); // クイックドラフト
+  remove_meta_box( 'dashboard_primary', 'dashboard', 'side' ); // WordPress イベントとニュース
+  remove_action( 'welcome_panel', 'wp_welcome_panel' ); // ウェルカムパネル
+}
+add_action( 'wp_dashboard_setup', 'remove_dashboard_widget' );
+
+//カスタムウィジェット追加
+function add_dashboard_widgets() {
+  wp_add_dashboard_widget(
+    'quick_action_dashboard_widget', // ウィジェットのスラッグ名
+    'マニュアル', // ウィジェットに表示するタイトル
+    'dashboard_widget_function' // 実行する関数
+  );
+}
+add_action( 'wp_dashboard_setup', 'add_dashboard_widgets' );
+
+//マニュアルへのリンク追加 (HTML) ※リンク設定必要
+function dashboard_widget_function() { ?>
+<ul class="quick-action">
+  <li>
+    <a href="" target="_blank" class="quick-action-button">
+      <span class="dashicons-before dashicons-book"></span>
+      マニュアルを見る
+    </a>
+  </li>
+</ul>
+<?php }
