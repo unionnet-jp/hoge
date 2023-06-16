@@ -1,18 +1,10 @@
-<?php 
-/*
- Union Theme - Version: 1.4
-*/
-?>
+  </main>
 
-<!-- / .l-contents --></div>
-
-<!--     フッター   -->
-
-<footer class="l-footer">
-  <div class="l-footer__inner">
-    <p class="l-footer__copyright"><small>&copy; 発行年を入れる <?php bloginfo('name'); ?></small></p>
-  <!-- / .l-footer__inner --></div>
-<!-- / .l-footer --></footer>
+  <footer class="l-footer">
+    <div class="l-footer__inner">
+      <p class="l-footer__copyright"><small>&copy; 発行年を入れる <?php bloginfo('name'); ?></small></p>
+    <!-- / .l-footer__inner --></div>
+  <!-- / .l-footer --></footer>
 
 <!-- / #page --></div>
 
