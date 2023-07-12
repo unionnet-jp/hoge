@@ -50,7 +50,7 @@ function add_my_files() {
  
   //JavaScript の読み込み
   wp_deregister_script('jquery');
-  wp_enqueue_script('my-script', home_url('dist/js/bundle.js'));
+  wp_enqueue_script('my-script', home_url('dist/js/bundle.js'), array(), '1.0', true);
 }
 add_action('wp_enqueue_scripts', 'add_my_files');
 
