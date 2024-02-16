@@ -85,16 +85,6 @@ define('THEMEDIR', esc_url(get_template_directory_uri('/'))); //テーマディ�
 //----------------------------------------------------
 
 /**
- * プラグインの更新を非表示
- */
-function remove_counts() {
-  global $menu,$submenu;
-  $menu[65][0] = 'プラグイン';
-  $submenu['index.php'][10][0] = '更新';
-}
-add_action('admin_menu', 'remove_counts');
-
-/**
  * 管理画面のWP更新メッセージを非表示に
  */
 add_action('admin_print_styles', 'admin_css_custom');
