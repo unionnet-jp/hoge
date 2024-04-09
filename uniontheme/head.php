@@ -2,12 +2,10 @@
   <meta charset="UTF-8">
   <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
   <meta name="format-detection" content="telephone=no" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <link rel="apple-touch-icon" sizes="180x180" href="<?php echo esc_url(home_url('img/apple-touch-icon.png')); ?>" />
   <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="<?php echo esc_url(home_url('img/favicon.ico')); ?>" />
   <link rel="manifest" href="<?php echo esc_url(home_url('site.webmanifest')); ?>" />
-  <meta name="msapplication-TileColor" content="#da532c" />
-  <meta name="msapplication-config" content="<?php echo esc_url(home_url('browserconfig.xml')); ?>" />
   <meta name="theme-color" content="#ffffff" />
   <link rel="icon" type="image/vnd.microsoft.icon" href="<?php echo esc_url(home_url('img/favicon.ico')); ?>" />
   <link rel="shortcut icon" type="image/x-icon" href="<?php echo esc_url(home_url('img/favicon.ico')); ?>" />
