@@ -6,7 +6,7 @@ Union Theme - Version: 1.4
  * テーマセットアップ
  */
 function uniontheme_setup() {
-	
+
 	// Adds RSS feed links to <head> for posts and comments.
 	add_theme_support('automatic-feed-links');
 
@@ -21,7 +21,7 @@ function uniontheme_setup() {
   // ));
 }
 add_action('after_setup_theme', 'uniontheme_setup');
- 
+
 /**
  * wp_head非表示項目
  */
@@ -47,7 +47,7 @@ function add_my_files() {
   wp_enqueue_style('builtin', get_stylesheet_uri());
   wp_enqueue_style('bundle-style', home_url('dist/js/bundle.css'));
   wp_enqueue_style('my-style', home_url('dist/css/style.min.css'));
- 
+
   //JavaScript の読み込み
   wp_deregister_script('jquery');
   wp_enqueue_script('my-script', home_url('dist/js/bundle.js'), array(), '1.0', true);
@@ -68,7 +68,7 @@ function strim($str, $size = 100, $end = "...") {
 /**
  * ホームURLを出力するショートコード
  */
-function user_fields_shortcode_home_url() { 
+function user_fields_shortcode_home_url() {
   return esc_url(home_url('/'));
 }
 add_shortcode('home_url', 'user_fields_shortcode_home_url');
@@ -232,3 +232,13 @@ function remove_cssjs_ver2($src) {
 }
 add_filter('style_loader_src', 'remove_cssjs_ver2', 9999);
 add_filter('script_loader_src', 'remove_cssjs_ver2', 9999);
+
+
+/**
+ * フォームからのメールが届かない、SPFレコードがPASSにならない場合などに設定
+ * さくらサーバーの場合は必須
+ */
+// add_action('phpmailer_init', function($phpmailer){
+// 	$phpmailer->SMTPKeepAlive = true;
+// 	$phpmailer->Sender = '***@<対象のドメイン.com>';
+// });
