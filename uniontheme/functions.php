@@ -8,7 +8,7 @@ Union Theme - Version: 1.4
 function uniontheme_setup() {
 
 	// Adds RSS feed links to <head> for posts and comments.
-	add_theme_support('automatic-feed-links');
+	// add_theme_support('automatic-feed-links');
 
 	// This theme uses a custom image size for featured images, displayed on "standard" posts.
 	add_theme_support('post-thumbnails');
@@ -26,6 +26,7 @@ add_action('after_setup_theme', 'uniontheme_setup');
  * wp_head非表示項目
  */
 remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+remove_action('wp_head', 'feed_links', 2);
 remove_action('wp_head', 'feed_links_extra', 3);
 remove_action('wp_head', 'rsd_link');
 remove_action('wp_head', 'wlwmanifest_link');
