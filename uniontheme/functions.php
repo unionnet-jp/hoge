@@ -54,9 +54,9 @@ function add_my_files() {
   wp_enqueue_script('my-script', home_url('dist/js/bundle.js'), array('jquery-validate'), '1.0', true);
   
   if (is_home() || is_front_page()) {
-    wp_enqueue_script('yubinbango','https://yubinbango.github.io/yubinbango/yubinbango.js', array(), false, true);
-  } else {
     wp_dequeue_style('wp-block-library');
+  } else {
+    wp_enqueue_script('yubinbango','https://yubinbango.github.io/yubinbango/yubinbango.js', array(), false, true);
   }
 }
 add_action('wp_enqueue_scripts', 'add_my_files');
