@@ -62,7 +62,7 @@
       "currency": "JPY",
       "value": {
         "@type": "QuantitativeValue",
-        "value": "<?php echo $salary; ?>",
+        "value": <?php echo $salary; ?>,
         "minValue": "<?php echo $salary_min; ?>", //必要であれば
         "maxValue": "<?php echo $salary_max; ?>", //必要であれば
         "unitText": "<?php echo $unittext; ?>"
