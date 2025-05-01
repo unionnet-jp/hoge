@@ -52,7 +52,7 @@ function add_my_files() {
   // JavaScript の読み込み
   wp_enqueue_script('jquery-validate', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js', array('jquery'), '1.0', true);
   wp_enqueue_script('my-script', home_url('dist/js/bundle.js'), array('jquery-validate'), '1.0', true);
-  
+
   if (is_home() || is_front_page()) {
     wp_dequeue_style('wp-block-library');
   } else {
@@ -249,3 +249,12 @@ add_filter('script_loader_src', 'remove_cssjs_ver2', 9999);
 // 	$phpmailer->SMTPKeepAlive = true;
 // 	$phpmailer->Sender = '***@<対象のドメイン.com>';
 // });
+
+
+/**
+ * ContactForm7でpタグ入れない
+ */
+add_filter('wpcf7_autop_or_not', 'wpcf7_autop_return_false');
+function wpcf7_autop_return_false() {
+  return false;
+}
