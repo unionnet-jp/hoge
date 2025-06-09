@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <link rel="apple-touch-icon" sizes="180x180" href="<?php echo esc_url(home_url('img/apple-touch-icon.png')); ?>" />
   <link rel="shortcut icon" type="image/vnd.microsoft.icon"
-    href="<?php echo esc_url(home_url('img/favicon.ico')); ?>" />
+    href="<?php echo esc_url(home_url('favicon.ico')); ?>" />
   <link rel="manifest" href="<?php echo esc_url(home_url('site.webmanifest')); ?>" />
   <meta name="theme-color" content="#ffffff" />
-  <link rel="icon" type="image/vnd.microsoft.icon" href="<?php echo esc_url(home_url('img/favicon.ico')); ?>" />
-  <link rel="shortcut icon" type="image/x-icon" href="<?php echo esc_url(home_url('img/favicon.ico')); ?>" />
+  <link rel="icon" type="image/vnd.microsoft.icon" href="<?php echo esc_url(home_url('favicon.ico')); ?>" />
+  <link rel="shortcut icon" type="image/x-icon" href="<?php echo esc_url(home_url('favicon.ico')); ?>" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
   <?php wp_head(); ?>
   <!--== Google For Jobs用の構造化データ ==-->

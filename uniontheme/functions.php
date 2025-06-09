@@ -46,6 +46,7 @@ function add_my_files() {
   //スタイルシートの読み込み
   wp_dequeue_style('classic-theme-styles');
   wp_enqueue_style('builtin', get_stylesheet_uri());
+  wp_enqueue_style('tailwind-style', home_url('dist/css/tailwind.css'));
   wp_enqueue_style('bundle-style', home_url('dist/js/bundle.css'));
   wp_enqueue_style('my-style', home_url('dist/css/style.min.css'));
 
@@ -54,7 +55,11 @@ function add_my_files() {
   wp_enqueue_script('my-script', home_url('dist/js/bundle.js'), array('jquery-validate'), '1.0', true);
 
   if (is_home() || is_front_page()) {
+    wp_dequeue_style('global-styles');
+    wp_dequeue_style('wp-block-library-theme');
     wp_dequeue_style('wp-block-library');
+    wp_dequeue_style('contact-form-7');
+    wp_deregister_script('contact-form-7');
   } else {
     wp_enqueue_script('yubinbango','https://yubinbango.github.io/yubinbango/yubinbango.js', array(), false, true);
   }
@@ -98,11 +103,6 @@ add_action('admin_print_styles', 'admin_css_custom');
 function admin_css_custom() {
   echo '<style>#update-nag, .update-nag{display: none !important;}</style>';
 }
-
-/**
- * 言語ファイルの自動アップデートを停止
- */
-add_filter('auto_update_translation', '__return_false');
 
 
 //----------------------------------------------------
@@ -258,3 +258,43 @@ add_filter('wpcf7_autop_or_not', 'wpcf7_autop_return_false');
 function wpcf7_autop_return_false() {
   return false;
 }
+
+/**
+ * 不要なカスタム権限を削除
+ */
+add_action('init', function () {
+  remove_role('wpseo_manager');
+  remove_role('wpseo_editor');
+  // 不要な BackWPup カスタムロールを削除
+  // remove_role('backwpup_admin');
+  // remove_role('backwpup_check');
+  // remove_role('backwpup_run');
+  // remove_role('backwpup_helper');
+});
+
+
+/**
+ * 投稿から基本タクソノミー削除
+ */
+function my_unregister_taxonomies() {
+  global $wp_taxonomies;
+  /**
+  * 投稿機能から「taxonomy」を削除
+  */
+  // if ( ! empty( $wp_taxonomies['category']->object_type ) ) {
+  //   foreach ( $wp_taxonomies['category']->object_type as $i => $object_type ) {
+  //     if ( 'post' === $object_type ) {
+  //       unset( $wp_taxonomies['category']->object_type[ $i ] );
+  //     }
+  //   }
+  // }
+  // if ( ! empty( $wp_taxonomies['post_tag']->object_type ) ) {
+  //   foreach ( $wp_taxonomies['post_tag']->object_type as $i => $object_type ) {
+  //     if ( 'post' === $object_type ) {
+  //       unset( $wp_taxonomies['post_tag']->object_type[ $i ] );
+  //     }
+  //   }
+  // }
+  return true;
+}
+// add_action( 'init', 'my_unregister_taxonomies' );

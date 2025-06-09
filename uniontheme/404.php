@@ -15,8 +15,8 @@
         <li>指定されたページは削除されたか、移動した可能性があります。</li>
       </ul>
       <p class="u-center"><a href="<?php echo HOME?>" class="c-return_top">トップへ戻る</a></p>
-    <!-- / .body --></div>
+    </div>
   </div>
-<!-- /.p-notfound_body --></section>
+</section>
 
 <?php get_footer(); ?>
