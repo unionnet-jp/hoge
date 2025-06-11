@@ -1,22 +1,39 @@
 <?php get_header(); ?>
+<article class="c-default_notfound">
+  <section>
+    <div class="c-container">
+      <h2><strong>404</strong><br />Not Found</h2>
+      <h3 class="u-mt10">ご指定のページが見つかりませんでした</h3>
+      <div class="body">
+        <p>
+          申し訳ございませんが、アクセスしようとしたページは見つかりませんでした。<br />URLが間違っているか、ページが削除・変更された可能性があります。<br />大変お手数ですが、URLを再度ご確認いただくか、下記から目的のページをお探しください。
+        </p>
+        <p class="u-mt10">
+          Sorry, the page you tried to access could not be found.<br />The URL may be incorrect or the page may have been deleted or changed.<br />We apologize for the inconvenience,<br />but
+          please check the URL again or find the page you are looking for below.
+        </p>
+        <!-- / .body -->
+      </div>
+      <div class="button">
+        <a href="/" class="c-button-primary w-fit flex items-center -white">
+          <span class="text"> トップページ </span>
 
-<div class="p-lower_kv">
-  <img src="<?php echo HOME; ?>img/main/main_404.jpg" alt="<?php the_title(); ?>">
-  <h1><?php the_title(); ?></h1><p>404 Not Found</p>
-</div>
+          <span class="icon">
+            <img class="js-svg" src="../img/common/fa/arrow-right-regular.svg" alt="" />
+          </span>
+        </a>
 
-<section class="p-notfound_body">
-  <div class="container">
-    <h2>404 Not Found - ページが見つかりません</h2>
-    <div class="body">
-      <p>指定されたページまたはファイルは存在しません</p>
-      <ul>
-        <li>URL、ファイル名にタイプミスがないかご確認ください。</li>
-        <li>指定されたページは削除されたか、移動した可能性があります。</li>
-      </ul>
-      <p class="u-center"><a href="<?php echo HOME?>" class="c-return_top">トップへ戻る</a></p>
+        <a href="/sitemap" class="c-button-primary w-fit flex items-center -white">
+          <span class="text"> サイトマップ </span>
+
+          <span class="icon">
+            <img class="js-svg" src="../img/common/fa/arrow-right-regular.svg" alt="" />
+          </span>
+        </a>
+      </div>
     </div>
-  </div>
-</section>
+    <!-- /.c-default_notfound_body -->
+  </section>
+</article>
 
 <?php get_footer(); ?>
