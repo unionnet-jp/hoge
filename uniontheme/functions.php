@@ -297,3 +297,81 @@ function my_unregister_taxonomies() {
   return true;
 }
 // add_action( 'init', 'my_unregister_taxonomies' );
+
+
+/**
+ * Contact Form 7のカスタムフィールドバリデーション
+ * カタカナ、ひらがな、郵便番号のバリデーションを追加
+ * 使用方法:
+ * フォームタグにクラスを追加することでバリデーションを適用
+ */
+
+ add_action('wpcf7_before_send_mail', function($contact_form) {
+  $submission = WPCF7_Submission::get_instance();
+  if (!$submission) return;
+
+  $posted_data = $submission->get_posted_data();
+
+  if (isset($posted_data['do_send']) && $posted_data['do_send'] === 'false') {
+    $contact_form->skip_mail = true;
+  }
+});
+
+add_filter('wpcf7_ajax_json_echo', function($response, $result) {
+  $submission = WPCF7_Submission::get_instance();
+  if (!$submission) return $response;
+
+  $posted_data = $submission->get_posted_data();
+  $do_send = $posted_data['do_send'] ?? 'false';
+
+  if ($do_send === 'false' && $response['status'] !== 'validation_failed') {
+    $response['message'] = 'バリデーション成功。送信可能です。';
+    $response['validation_passed'] = true; // カスタムキー
+    $response['status'] = 'confirmed';
+  }
+
+  return $response;
+}, 10, 2);
+
+function custom_cf7_field_validation($result, $tag) {
+  $tag = new WPCF7_FormTag( $tag );
+  $classes = [];
+
+  foreach ( $tag->options as $option ) {
+    if ( strpos( $option, 'class:' ) === 0 ) {
+      $class_string = substr( $option, 6 );
+      $class_array = preg_split( '/[\s]+/', $class_string, -1, PREG_SPLIT_NO_EMPTY );
+      $classes = array_merge( $classes, $class_array );
+    }
+  }
+
+  $name = $tag->name;
+  $value = isset($_POST[$name]) ? trim($_POST[$name]) : '';
+
+  
+  // ひらがなバリデーション
+  if (in_array('hiragana', $classes)) {
+    if (!preg_match('/^[ぁ-んー　]+$/u', $value)) {
+      $result->invalidate($tag, '全角ひらがなで入力してください。');
+    }
+  }
+
+  // カタカナバリデーション
+  if (in_array('katakana', $classes)) {
+    if (!preg_match('/^[ァ-ヶー　]+$/u', $value)) {
+      $result->invalidate($tag, '全角カタカナで入力してください。');
+    }
+  }
+
+  // 郵便番号バリデーション
+  if (in_array('p-postal-code', $classes) || in_array('zipcode', $classes)) {
+    if (!preg_match('/^\d{3}-?\d{4}$/', $value)) {
+      $result->invalidate($tag, '正しい郵便番号（例：123-4567）を入力してください。');
+    }
+  }
+
+  return $result;
+}
+
+add_filter('wpcf7_validate_text', 'custom_cf7_field_validation', 10, 2);
+add_filter('wpcf7_validate_text*', 'custom_cf7_field_validation', 10, 2);
