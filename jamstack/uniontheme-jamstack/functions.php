@@ -70,10 +70,6 @@ add_filter('graphql_connection_max_query_amount', function (int $max_amount, $so
 // add_image_size('works_content', 1280, 900, true);
 // add_image_size('works_content_full', 2560, 0, false);
 
-// ACF PRO の Post Type を無効
-add_filter( 'acf/settings/enable_post_types', '__return_false' );
-
-
 
 /**
  * 不要なブロックの削除
