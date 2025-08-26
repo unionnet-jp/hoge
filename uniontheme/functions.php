@@ -52,6 +52,8 @@ function add_my_files() {
 
   // JavaScript の読み込み
   wp_enqueue_script('my-script', home_url('dist/js/bundle.js'), null, '1.0', true);
+  wp_enqueue_script('form-script', get_theme_file_uri( 'settings/form.js' ), null, null, true);
+  wp_enqueue_script('yubinbango','https://yubinbango.github.io/yubinbango/yubinbango.js', array(), false, true);
 
   if (is_home() || is_front_page()) {
     wp_dequeue_style('global-styles');
