@@ -52,6 +52,7 @@ function add_my_files() {
 
   // JavaScript の読み込み
   wp_enqueue_script('my-script', home_url('dist/js/bundle.js'), null, '1.0', true);
+  
   wp_enqueue_script('form-script', get_theme_file_uri( 'settings/form.js' ), null, null, true);
   wp_enqueue_script('yubinbango','https://yubinbango.github.io/yubinbango/yubinbango.js', array(), false, true);
 
@@ -60,7 +61,7 @@ function add_my_files() {
     wp_dequeue_style('wp-block-library-theme');
     wp_dequeue_style('wp-block-library');
     wp_dequeue_style('contact-form-7');
-    wp_deregister_script('contact-form-7');
+    // wp_deregister_script('contact-form-7');
   } else {
     wp_enqueue_script('yubinbango','https://yubinbango.github.io/yubinbango/yubinbango.js', array(), false, true);
   }
@@ -217,8 +218,6 @@ function add_dashboard_widgets() {
 
 // add_action('wp_dashboard_setup', 'add_dashboard_widgets');
 
-
-
 //----------------------------------------------------
 // その他
 //----------------------------------------------------
@@ -226,7 +225,6 @@ function add_dashboard_widgets() {
 /**
  * 2560pxを超える大きな画像でも「フルサイズ」の画像としてオリジナル画像を使用する
  */
-
 add_filter('big_image_size_threshold', '__return_false');
 
 /**
@@ -241,7 +239,6 @@ function remove_cssjs_ver2($src) {
 add_filter('style_loader_src', 'remove_cssjs_ver2', 9999);
 add_filter('script_loader_src', 'remove_cssjs_ver2', 9999);
 
-
 /**
  * フォームからのメールが届かない、SPFレコードがPASSにならない場合などに設定
  * さくらサーバーの場合は必須
@@ -250,7 +247,6 @@ add_filter('script_loader_src', 'remove_cssjs_ver2', 9999);
 // 	$phpmailer->SMTPKeepAlive = true;
 // 	$phpmailer->Sender = '***@<対象のドメイン.com>';
 // });
-
 
 /**
  * ContactForm7でpタグ入れない
@@ -272,7 +268,6 @@ add_action('init', function () {
   // remove_role('backwpup_run');
   // remove_role('backwpup_helper');
 });
-
 
 /**
  * 投稿から基本タクソノミー削除
@@ -300,24 +295,22 @@ function my_unregister_taxonomies() {
 }
 // add_action( 'init', 'my_unregister_taxonomies' );
 
-
 /**
  * Contact Form 7のカスタムフィールドバリデーション
  * カタカナ、ひらがな、郵便番号のバリデーションを追加
  * 使用方法:
  * フォームタグにクラスを追加することでバリデーションを適用
  */
-
- add_action('wpcf7_before_send_mail', function($contact_form) {
+add_filter('wpcf7_skip_mail', function($skip_mail, $contact_form) {
   $submission = WPCF7_Submission::get_instance();
-  if (!$submission) return;
+  if (!$submission) return $skip_mail;
 
   $posted_data = $submission->get_posted_data();
-
   if (isset($posted_data['do_send']) && $posted_data['do_send'] === 'false') {
-    $contact_form->skip_mail = true;
+    return true;
   }
-});
+  return $skip_mail;
+}, 10, 2);
 
 add_filter('wpcf7_ajax_json_echo', function($response, $result) {
   $submission = WPCF7_Submission::get_instance();
@@ -331,7 +324,6 @@ add_filter('wpcf7_ajax_json_echo', function($response, $result) {
     $response['validation_passed'] = true; // カスタムキー
     $response['status'] = 'confirmed';
   }
-
   return $response;
 }, 10, 2);
 
@@ -349,25 +341,24 @@ function custom_cf7_field_validation($result, $tag) {
 
   $name = $tag->name;
   $value = isset($_POST[$name]) ? trim($_POST[$name]) : '';
-
   
   // ひらがなバリデーション
   if (in_array('hiragana', $classes)) {
-    if (!preg_match('/^[ぁ-んー　]+$/u', $value)) {
+    if ($value && !preg_match('/^[ぁ-んー　]+$/u', $value)) {
       $result->invalidate($tag, '全角ひらがなで入力してください。');
     }
   }
 
   // カタカナバリデーション
   if (in_array('katakana', $classes)) {
-    if (!preg_match('/^[ァ-ヶー　]+$/u', $value)) {
+    if ($value && !preg_match('/^[ァ-ヶー　]+$/u', $value)) {
       $result->invalidate($tag, '全角カタカナで入力してください。');
     }
   }
 
   // 郵便番号バリデーション
   if (in_array('p-postal-code', $classes) || in_array('zipcode', $classes)) {
-    if (!preg_match('/^\d{3}-?\d{4}$/', $value)) {
+    if ($value && !preg_match('/^\d{3}-?\d{4}$/', $value)) {
       $result->invalidate($tag, '正しい郵便番号（例：123-4567）を入力してください。');
     }
   }
