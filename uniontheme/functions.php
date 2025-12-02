@@ -46,18 +46,23 @@ function add_my_files() {
   //スタイルシートの読み込み
   wp_dequeue_style('classic-theme-styles');
   wp_enqueue_style('builtin', get_stylesheet_uri());
+  wp_enqueue_style('tailwind-style', home_url('dist/css/tailwind.css'));
   wp_enqueue_style('bundle-style', home_url('dist/js/bundle.css'));
   wp_enqueue_style('my-style', home_url('dist/css/style.min.css'));
 
   // JavaScript の読み込み
-  wp_enqueue_script('jquery-validate', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js', array('jquery'), '1.0', true);
-  wp_enqueue_script('my-script', home_url('dist/js/bundle.js'), array('jquery-validate'), '1.0', true);
-
+  
   if (is_home() || is_front_page()) {
+    wp_dequeue_style('global-styles');
+    wp_dequeue_style('wp-block-library-theme');
     wp_dequeue_style('wp-block-library');
+    wp_dequeue_style('contact-form-7');
+    // wp_deregister_script('contact-form-7');
   } else {
-    wp_enqueue_script('yubinbango','https://yubinbango.github.io/yubinbango/yubinbango.js', array(), false, true);
+    wp_enqueue_script('form-script', get_theme_file_uri('settings/form.js'), null, null, array('in_footer' => false, 'strategy' => 'defer'));
+    wp_enqueue_script('yubinbango','https://yubinbango.github.io/yubinbango/yubinbango.js', null, null, array('in_footer' => false, 'strategy' => 'defer'));
   }
+  wp_enqueue_script('my-script', home_url('dist/js/bundle.js'), null, null, array('in_footer' => false, 'strategy' => 'defer'));
 }
 add_action('wp_enqueue_scripts', 'add_my_files');
 
@@ -98,11 +103,6 @@ add_action('admin_print_styles', 'admin_css_custom');
 function admin_css_custom() {
   echo '<style>#update-nag, .update-nag{display: none !important;}</style>';
 }
-
-/**
- * 言語ファイルの自動アップデートを停止
- */
-add_filter('auto_update_translation', '__return_false');
 
 
 //----------------------------------------------------
@@ -216,8 +216,6 @@ function add_dashboard_widgets() {
 
 // add_action('wp_dashboard_setup', 'add_dashboard_widgets');
 
-
-
 //----------------------------------------------------
 // その他
 //----------------------------------------------------
@@ -225,7 +223,6 @@ function add_dashboard_widgets() {
 /**
  * 2560pxを超える大きな画像でも「フルサイズ」の画像としてオリジナル画像を使用する
  */
-
 add_filter('big_image_size_threshold', '__return_false');
 
 /**
@@ -240,7 +237,6 @@ function remove_cssjs_ver2($src) {
 add_filter('style_loader_src', 'remove_cssjs_ver2', 9999);
 add_filter('script_loader_src', 'remove_cssjs_ver2', 9999);
 
-
 /**
  * フォームからのメールが届かない、SPFレコードがPASSにならない場合などに設定
  * さくらサーバーの場合は必須
@@ -250,7 +246,6 @@ add_filter('script_loader_src', 'remove_cssjs_ver2', 9999);
 // 	$phpmailer->Sender = '***@<対象のドメイン.com>';
 // });
 
-
 /**
  * ContactForm7でpタグ入れない
  */
@@ -258,3 +253,116 @@ add_filter('wpcf7_autop_or_not', 'wpcf7_autop_return_false');
 function wpcf7_autop_return_false() {
   return false;
 }
+
+/**
+ * 不要なカスタム権限を削除
+ */
+add_action('init', function () {
+  remove_role('wpseo_manager');
+  remove_role('wpseo_editor');
+  // 不要な BackWPup カスタムロールを削除
+  // remove_role('backwpup_admin');
+  // remove_role('backwpup_check');
+  // remove_role('backwpup_run');
+  // remove_role('backwpup_helper');
+});
+
+/**
+ * 投稿から基本タクソノミー削除
+ */
+function my_unregister_taxonomies() {
+  // global $wp_taxonomies;
+  /**
+  * 投稿機能から「taxonomy」を削除
+  */
+  // if ( ! empty( $wp_taxonomies['category']->object_type ) ) {
+  //   foreach ( $wp_taxonomies['category']->object_type as $i => $object_type ) {
+  //     if ( 'post' === $object_type ) {
+  //       unset( $wp_taxonomies['category']->object_type[ $i ] );
+  //     }
+  //   }
+  // }
+  // if ( ! empty( $wp_taxonomies['post_tag']->object_type ) ) {
+  //   foreach ( $wp_taxonomies['post_tag']->object_type as $i => $object_type ) {
+  //     if ( 'post' === $object_type ) {
+  //       unset( $wp_taxonomies['post_tag']->object_type[ $i ] );
+  //     }
+  //   }
+  // }
+  return true;
+}
+// add_action( 'init', 'my_unregister_taxonomies' );
+
+/**
+ * Contact Form 7のカスタムフィールドバリデーション
+ * カタカナ、ひらがな、郵便番号のバリデーションを追加
+ * 使用方法:
+ * フォームタグにクラスを追加することでバリデーションを適用
+ */
+add_filter('wpcf7_skip_mail', function($skip_mail, $contact_form) {
+  $submission = WPCF7_Submission::get_instance();
+  if (!$submission) return $skip_mail;
+
+  $posted_data = $submission->get_posted_data();
+  if (isset($posted_data['do_send']) && $posted_data['do_send'] === 'false') {
+    return true;
+  }
+  return $skip_mail;
+}, 10, 2);
+
+add_filter('wpcf7_ajax_json_echo', function($response, $result) {
+  $submission = WPCF7_Submission::get_instance();
+  if (!$submission) return $response;
+
+  $posted_data = $submission->get_posted_data();
+  $do_send = $posted_data['do_send'] ?? 'false';
+
+  if ($do_send === 'false' && $response['status'] !== 'validation_failed') {
+    $response['message'] = 'バリデーション成功。送信可能です。';
+    $response['validation_passed'] = true; // カスタムキー
+    $response['status'] = 'confirmed';
+  }
+  return $response;
+}, 10, 2);
+
+function custom_cf7_field_validation($result, $tag) {
+  $tag = new WPCF7_FormTag( $tag );
+  $classes = [];
+
+  foreach ( $tag->options as $option ) {
+    if ( strpos( $option, 'class:' ) === 0 ) {
+      $class_string = substr( $option, 6 );
+      $class_array = preg_split( '/[\s]+/', $class_string, -1, PREG_SPLIT_NO_EMPTY );
+      $classes = array_merge( $classes, $class_array );
+    }
+  }
+
+  $name = $tag->name;
+  $value = isset($_POST[$name]) ? trim($_POST[$name]) : '';
+  
+  // ひらがなバリデーション
+  if (in_array('hiragana', $classes)) {
+    if ($value && !preg_match('/^[ぁ-んー　]+$/u', $value)) {
+      $result->invalidate($tag, '全角ひらがなで入力してください。');
+    }
+  }
+
+  // カタカナバリデーション
+  if (in_array('katakana', $classes)) {
+    if ($value && !preg_match('/^[ァ-ヶー　]+$/u', $value)) {
+      $result->invalidate($tag, '全角カタカナで入力してください。');
+    }
+  }
+
+  // 郵便番号バリデーション
+  if (in_array('p-postal-code', $classes) || in_array('zipcode', $classes)) {
+    if ($value && !preg_match('/^\d{3}-?\d{4}$/', $value)) {
+      $result->invalidate($tag, '正しい郵便番号（例：123-4567）を入力してください。');
+    }
+  }
+
+  return $result;
+}
+
+add_filter('wpcf7_validate_text', 'custom_cf7_field_validation', 10, 2);
+add_filter('wpcf7_validate_text*', 'custom_cf7_field_validation', 10, 2);
