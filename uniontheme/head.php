@@ -10,22 +10,23 @@
   <meta name="theme-color" content="#ffffff" />
   <link rel="icon" type="image/vnd.microsoft.icon" href="<?php echo esc_url(home_url('favicon.ico')); ?>" />
   <link rel="shortcut icon" type="image/x-icon" href="<?php echo esc_url(home_url('favicon.ico')); ?>" />
+  <!-- タブレット対応しないJS <script src="<?php echo esc_url(home_url('dist/js/tablet-fix.js')); ?>"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
   <?php wp_head(); ?>
   <!--== Google For Jobs用の構造化データ ==-->
   <?php if (is_singular('requirements')) : ?>
   <?php while (have_posts()) : the_post(); ?>
   <?php
-      $address_region = get_post_meta($post->ID, 'address_region', true);//県
-      $address_locality = get_post_meta($post->ID, 'address_locality', true);//市
-      $street_address = get_post_meta($post->ID, 'street_address', true);//それ以降の住所
-      $postal_code = get_post_meta($post->ID, 'postal_code', true);//郵便番号
-      $employment_type = get_post_meta($post->ID, 'employment_type', true);//勤務形態
-      $salary = get_post_meta($post->ID, 'salary', true);//給与
-      $salary_min = get_post_meta($post->ID, 'salary_min', true);//給与(最小)必要であれば
-      $salary_max = get_post_meta($post->ID, 'salary_max', true);//給与(最大)必要であれば
-      $unittext = get_post_meta($post->ID, 'unittext', true);//勤務形態
-    ?>
+    $address_region = get_post_meta($post->ID, 'address_region', true);//県
+    $address_locality = get_post_meta($post->ID, 'address_locality', true);//市
+    $street_address = get_post_meta($post->ID, 'street_address', true);//それ以降の住所
+    $postal_code = get_post_meta($post->ID, 'postal_code', true);//郵便番号
+    $employment_type = get_post_meta($post->ID, 'employment_type', true);//勤務形態
+    $salary = get_post_meta($post->ID, 'salary', true);//給与
+    $salary_min = get_post_meta($post->ID, 'salary_min', true);//給与(最小)必要であれば
+    $salary_max = get_post_meta($post->ID, 'salary_max', true);//給与(最大)必要であれば
+    $unittext = get_post_meta($post->ID, 'unittext', true);//勤務形態
+  ?>
   <script type="application/ld+json">
   {
     "@context": "http://schema.org/",

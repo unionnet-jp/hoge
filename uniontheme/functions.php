@@ -51,11 +51,7 @@ function add_my_files() {
   wp_enqueue_style('my-style', home_url('dist/css/style.min.css'));
 
   // JavaScript の読み込み
-  wp_enqueue_script('my-script', home_url('dist/js/bundle.js'), null, '1.0', true);
   
-  wp_enqueue_script('form-script', get_theme_file_uri( 'settings/form.js' ), null, null, true);
-  wp_enqueue_script('yubinbango','https://yubinbango.github.io/yubinbango/yubinbango.js', array(), false, true);
-
   if (is_home() || is_front_page()) {
     wp_dequeue_style('global-styles');
     wp_dequeue_style('wp-block-library-theme');
@@ -63,8 +59,10 @@ function add_my_files() {
     wp_dequeue_style('contact-form-7');
     // wp_deregister_script('contact-form-7');
   } else {
-    wp_enqueue_script('yubinbango','https://yubinbango.github.io/yubinbango/yubinbango.js', array(), false, true);
+    wp_enqueue_script('form-script', get_theme_file_uri('settings/form.js'), null, null, array('in_footer' => false, 'strategy' => 'defer'));
+    wp_enqueue_script('yubinbango','https://yubinbango.github.io/yubinbango/yubinbango.js', null, null, array('in_footer' => false, 'strategy' => 'defer'));
   }
+  wp_enqueue_script('my-script', home_url('dist/js/bundle.js'), null, null, array('in_footer' => false, 'strategy' => 'defer'));
 }
 add_action('wp_enqueue_scripts', 'add_my_files');
 
@@ -273,7 +271,7 @@ add_action('init', function () {
  * 投稿から基本タクソノミー削除
  */
 function my_unregister_taxonomies() {
-  global $wp_taxonomies;
+  // global $wp_taxonomies;
   /**
   * 投稿機能から「taxonomy」を削除
   */
