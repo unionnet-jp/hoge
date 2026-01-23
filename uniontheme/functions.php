@@ -44,7 +44,6 @@ remove_action('wp_print_styles', 'print_emoji_styles', 10);
  */
 function add_my_files() {
   //スタイルシートの読み込み
-  wp_dequeue_style('classic-theme-styles');
   wp_enqueue_style('builtin', get_stylesheet_uri());
   wp_enqueue_style('tailwind-style', home_url('dist/css/tailwind.css'));
   wp_enqueue_style('bundle-style', home_url('dist/js/bundle.css'));
