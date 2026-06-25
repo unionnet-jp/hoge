@@ -130,3 +130,8 @@ function my_unregister_taxonomies()
 }
  
 add_action('init', 'my_unregister_taxonomies');
+
+// ACF Blockのデフォルトバージョンを3に設定
+add_filter( 'acf/blocks/default_block_version', function ( $version, $block ) {
+  return 3;
+}, 10, 2 );

@@ -365,3 +365,8 @@ function custom_cf7_field_validation($result, $tag) {
 
 add_filter('wpcf7_validate_text', 'custom_cf7_field_validation', 10, 2);
 add_filter('wpcf7_validate_text*', 'custom_cf7_field_validation', 10, 2);
+
+// ACF Blockのデフォルトバージョンを3に設定
+add_filter( 'acf/blocks/default_block_version', function ( $version, $block ) {
+  return 3;
+}, 10, 2 );
