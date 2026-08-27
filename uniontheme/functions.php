@@ -366,7 +366,35 @@ function custom_cf7_field_validation($result, $tag) {
 add_filter('wpcf7_validate_text', 'custom_cf7_field_validation', 10, 2);
 add_filter('wpcf7_validate_text*', 'custom_cf7_field_validation', 10, 2);
 
-// ACF Blockのデフォルトバージョンを3に設定
+/**
+ * ACF Blockのデフォルトバージョンを3に設定
+ */
 add_filter( 'acf/blocks/default_block_version', function ( $version, $block ) {
   return 3;
 }, 10, 2 );
+
+/**
+ * ACF Blockのコアブロックアセットを分離して読み込まないようにするフィルター
+ */
+add_filter( 'should_load_separate_core_block_assets', '__return_false' );
+
+/**
+ * 管理バーを下に
+ */
+function oz_admin_bar_to_the_bottom()
+{
+  echo '<style type="text/css">
+  html {
+    margin-top: 0 !important;
+  }
+  #wpadminbar {
+    top: auto !important;
+    position: fixed !important;
+    bottom: 0 !important;
+  }
+  #wpadminbar .ab-sub-wrapper {
+    bottom: 100% !important;
+  }
+  </style>';
+}
+// add_action('wp_footer', 'oz_admin_bar_to_the_bottom');

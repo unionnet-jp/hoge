@@ -3,6 +3,7 @@
 <?php get_template_part('head'); ?>
 <body <?php body_class(); ?>>
 <div id="page">
+	<?php get_template_part('templates/drawer'); ?>
 	<header class="l-header">
 		<div class="l-header__inner">
 			<?php if (is_front_page() && !is_paged()) : ?>
